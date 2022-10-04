@@ -1,5 +1,4 @@
 import com.googlecode.lanterna.TerminalSize;
-import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 import com.googlecode.lanterna.screen.Screen;
@@ -11,10 +10,10 @@ import java.io.IOException;
 
 public class Game {
     private Screen screen;
-    private Hero hero;
+    private Arena arena;
     public Game() throws IOException {
         try {
-            hero = new Hero(new Position(10, 10));
+            arena = new Arena(20, 20);
             Terminal terminal = new DefaultTerminalFactory().createTerminal();
             screen = new TerminalScreen(terminal);
             screen.setCursorPosition(null); // we don't need a cursor
@@ -29,7 +28,7 @@ public class Game {
     }
     private void draw() throws IOException{
         screen.clear();
-        hero.draw(screen);
+        arena.draw(screen);
         screen.refresh();
     }
     public void run() throws IOException {
@@ -45,22 +44,22 @@ public class Game {
     }
 
     private void moveHero(Position p){
-        hero.setPosition(p);
+        arena.moveHero(p);
     }
 
     private void processKey(KeyStroke key){
         System.out.println(key);
         if (key.getKeyType() == KeyType.ArrowUp){
-            moveHero(hero.moveUp());
+            moveHero(Arena.getHero().moveUp());
         }
         if (key.getKeyType() == KeyType.ArrowDown){
-            moveHero(hero.moveDown());
+            moveHero(Arena.getHero().moveDown());
         }
         if (key.getKeyType() == KeyType.ArrowRight){
-            moveHero(hero.moveRight());
+            moveHero(Arena.getHero().moveRight());
         }
         if (key.getKeyType() == KeyType.ArrowLeft){
-            moveHero(hero.moveLeft());
+            moveHero(Arena.getHero().moveLeft());
         }
     }
 
