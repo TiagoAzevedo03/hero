@@ -47,7 +47,7 @@ public class Game {
     private void processKey(com.googlecode.lanterna.input.KeyStroke key){
         System.out.println(key);
         if (key.getKeyType() == KeyType.ArrowUp){
-            hero.setY(hero.getX()-1);
+            hero.setY(hero.getY()-1);
         }
         if (key.getKeyType() == KeyType.ArrowDown){
             hero.setY(hero.getY()+1);
