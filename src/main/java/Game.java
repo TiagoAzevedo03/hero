@@ -14,7 +14,7 @@ public class Game {
     private Hero hero;
     public Game() throws IOException {
         try {
-            hero = new Hero(10, 10);
+            hero = new Hero(new Position(10, 10));
             Terminal terminal = new DefaultTerminalFactory().createTerminal();
             screen = new TerminalScreen(terminal);
             screen.setCursorPosition(null); // we don't need a cursor
@@ -29,7 +29,7 @@ public class Game {
     }
     private void draw() throws IOException{
         screen.clear();
-        screen.setCharacter(hero.getX(), hero.getY(), TextCharacter.fromCharacter('X')[0]);
+        hero.draw(screen);
         screen.refresh();
     }
     public void run() throws IOException {
@@ -44,20 +44,25 @@ public class Game {
         }
     }
 
-    private void processKey(com.googlecode.lanterna.input.KeyStroke key){
+    private void moveHero(Position p){
+        hero.setPosition(p);
+    }
+
+    private void processKey(KeyStroke key){
         System.out.println(key);
         if (key.getKeyType() == KeyType.ArrowUp){
-            hero.setY(hero.getY()-1);
+            moveHero(hero.moveUp());
         }
         if (key.getKeyType() == KeyType.ArrowDown){
-            hero.setY(hero.getY()+1);
+            moveHero(hero.moveDown());
         }
         if (key.getKeyType() == KeyType.ArrowRight){
-            hero.setX(hero.getX()+1);
+            moveHero(hero.moveRight());
         }
         if (key.getKeyType() == KeyType.ArrowLeft){
-            hero.setX(hero.getX()-1);
+            moveHero(hero.moveLeft());
         }
     }
+
 }
 
