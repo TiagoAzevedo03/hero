@@ -21,13 +21,17 @@ public class Arena {
 
     private ArrayList<Coin> coins;
 
+    private ArrayList<Monster> monsters;
+
     public Arena(int w, int h){
         hero = new Hero (new Position(10, 10));
         width = w;
         height = h;
         walls = createWalls();
         coins = (ArrayList<Coin>) createCoins();
+        monsters = (ArrayList<Monster>) createMonsters();
     }
+
 
     public static Hero getHero(){
         return hero;
@@ -76,6 +80,11 @@ public class Arena {
         for (Coin coin: coins){
             coin.draw(graphics);
         }
+        moveMonsters();
+        for (Monster m: monsters){
+            m.draw(graphics);
+        }
+
         hero.draw(g);
     }
 
@@ -112,4 +121,34 @@ public class Arena {
     public boolean emptyCoins(){
         return coins.isEmpty();
     }
+
+    private List<Monster> createMonsters() {
+        Random random = new Random();
+        ArrayList<Monster> monsters = new ArrayList<>();
+        for (int i = 0; i < 3; i++)
+            monsters.add(new Monster(new Position(random.nextInt(width - 2) + 1, random.nextInt(height - 2) + 1)));
+        return monsters;
+    }
+
+    public boolean verifyMonsterCollisions(){
+        for(Monster m: monsters){
+            if (m.getPosition().getX() == hero.getPosition().getX() && m.getPosition().getY() == hero.getPosition().getY()){
+                return true;
+            }
+        }
+        return false;
+    }
+    public void moveMonsters(){
+        for(Monster m: monsters){
+            boolean flag = true;
+            for (Wall w: walls){
+                if (w.getPosition().getX() == m.getPosition().getX() && w.getPosition().getY() == m.getPosition().getY()){
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag) m.move();
+        }
+    }
+
 }

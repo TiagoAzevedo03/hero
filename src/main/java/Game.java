@@ -45,6 +45,11 @@ public class Game {
             processKey(key);
             if (arena.emptyCoins()){
                 screen.close();
+                System.out.println("You Won!");
+            }
+            if (arena.verifyMonsterCollisions()){
+                screen.close();
+                System.out.println("You Lost!");
             }
             //arena.retrieveCoins();
         }

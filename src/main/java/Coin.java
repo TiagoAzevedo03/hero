@@ -19,6 +19,6 @@ public class Coin extends Element{
     }
 
     public void draw(TextGraphics screen){
-        screen.setCharacter(position.getX(), position.getY(), TextCharacter.fromCharacter('X')[0]);
+        screen.setCharacter(position.getX(), position.getY(), TextCharacter.fromCharacter('C')[0]);
     }
 }
