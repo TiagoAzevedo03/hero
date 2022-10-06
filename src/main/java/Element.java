@@ -1,11 +1,11 @@
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class Wall extends Element{
+public abstract class Element {
     private Position position;
 
-    public Wall (Position p){
-        position = p;
+    public Element() {
+        System.out.println("Default constructor");
     }
 
     public Position getPosition(){
@@ -19,6 +19,4 @@ public class Wall extends Element{
     public void draw(TextGraphics screen){
         screen.setCharacter(position.getX(), position.getY(), TextCharacter.fromCharacter('X')[0]);
     }
-
-
 }

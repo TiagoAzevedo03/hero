@@ -43,6 +43,7 @@ public class Game {
             }
             if (key.getKeyType() == KeyType.EOF) break;
             processKey(key);
+            //arena.retrieveCoins();
         }
     }
 
