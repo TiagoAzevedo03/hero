@@ -5,6 +5,9 @@ import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Arena {
     private int width;
     private int height;
@@ -13,10 +16,13 @@ public class Arena {
 
     private TextGraphics graphics;
 
+    private List<Wall> walls;
+
     public Arena(int w, int h){
         hero = new Hero (new Position(10, 10));
         width = w;
         height = h;
+        walls = createWalls();
     }
 
     public static Hero getHero(){
@@ -46,7 +52,11 @@ public class Arena {
     }
 
     public boolean canHeroMove(Position p){
-        return p.getX() <= width && p.getY() <= height && p.getX() >= 0 && p.getY() >= 0;
+        for (Wall w: walls){
+            if (w.getPosition().getX() == p.getX() && w.getPosition().getY() == p.getY()) return false;
+        }
+        return true;
+        //return p.getX() <= width && p.getY() <= height;
     }
 
     public void draw(TextGraphics g){
@@ -56,7 +66,21 @@ public class Arena {
         graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
         graphics.enableModifiers(SGR.BOLD);
         graphics.putString(new TerminalPosition(hero.getPosition().getX(), hero.getPosition().getY()), "X");
-
+        for (Wall wall : walls)
+            wall.draw(graphics);
         hero.draw(g);
+    }
+
+    private List<Wall> createWalls() {
+        List<Wall> walls = new ArrayList<>();
+        for (int c = 0; c < width; c++) {
+            walls.add(new Wall(c, 0));
+            walls.add(new Wall(c, height - 1));
+        }
+        for (int r = 1; r < height - 1; r++) {
+            walls.add(new Wall(0, r));
+            walls.add(new Wall(width - 1, r));
+        }
+        return walls;
     }
 }
