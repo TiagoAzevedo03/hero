@@ -1,3 +1,8 @@
+import com.googlecode.lanterna.SGR;
+import com.googlecode.lanterna.TerminalPosition;
+import com.googlecode.lanterna.TerminalSize;
+import com.googlecode.lanterna.TextColor;
+import com.googlecode.lanterna.graphics.TextGraphics;
 import com.googlecode.lanterna.screen.Screen;
 
 public class Arena {
@@ -5,6 +10,8 @@ public class Arena {
     private int height;
 
     static private Hero hero;
+
+    private TextGraphics graphics;
 
     public Arena(int w, int h){
         hero = new Hero (new Position(10, 10));
@@ -39,10 +46,17 @@ public class Arena {
     }
 
     public boolean canHeroMove(Position p){
-        return p.getX() <= width && p.getY() <= height;
+        return p.getX() <= width && p.getY() <= height && p.getX() >= 0 && p.getY() >= 0;
     }
 
-    public void draw(Screen screen){
-        hero.draw(screen);
+    public void draw(TextGraphics g){
+        graphics = g;
+        graphics.setBackgroundColor(TextColor.Factory.fromString("#336699"));
+        graphics.fillRectangle(new TerminalPosition(0, 0), new TerminalSize(width, height), ' ');
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF33"));
+        graphics.enableModifiers(SGR.BOLD);
+        graphics.putString(new TerminalPosition(hero.getPosition().getX(), hero.getPosition().getY()), "X");
+
+        hero.draw(g);
     }
 }
