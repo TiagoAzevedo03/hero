@@ -1,7 +1,7 @@
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
-public class Monster {
+public class Monster extends Element{
     private Position position;
 
     public Monster(Position p){

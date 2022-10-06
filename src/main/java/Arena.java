@@ -108,4 +108,8 @@ public class Arena {
             }
         }
     }
+
+    public boolean emptyCoins(){
+        return coins.isEmpty();
+    }
 }
