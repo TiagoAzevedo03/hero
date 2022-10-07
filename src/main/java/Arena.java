@@ -24,7 +24,7 @@ public class Arena {
     private ArrayList<Monster> monsters;
 
     public Arena(int w, int h){
-        hero = new Hero (new Position(10, 10));
+        hero = new Hero (new Position(15, 10));
         width = w;
         height = h;
         walls = createWalls();

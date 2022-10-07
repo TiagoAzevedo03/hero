@@ -16,18 +16,16 @@ public class Game {
     private Arena arena;
     public Game() throws IOException {
         try {
-            arena = new Arena(20, 20);
+            arena = new Arena(25, 20);
             Terminal terminal = new DefaultTerminalFactory().createTerminal();
             screen = new TerminalScreen(terminal);
+            TerminalSize terminalSize = new TerminalSize(40, 20);
             screen.setCursorPosition(null); // we don't need a cursor
             screen.startScreen(); // screens must be started
             screen.doResizeIfNecessary(); // resize screen if
         } catch (IOException e) {
             e.printStackTrace();
         }
-        TerminalSize terminalSize = new TerminalSize(40, 20);
-        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);
-        Terminal terminal = terminalFactory.createTerminal();
     }
     private void draw() throws IOException{
         screen.clear();
