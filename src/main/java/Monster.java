@@ -1,6 +1,7 @@
 import com.googlecode.lanterna.TextCharacter;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Monster extends Element{
@@ -22,26 +23,27 @@ public class Monster extends Element{
         screen.setCharacter(position.getX(), position.getY(), TextCharacter.fromCharacter('M')[0]);
     }
 
-    public Position move(){
+    public Position move(int width, int height){
         Random random = new Random();
         Position p = getPosition();
         int x = random.nextInt(4);
-        if(x == 1){
+        if(x == 1 && p.getY() != height - 2){
             p.setX(p.getX());
             p.setY(p.getY()+1);
         }
-        if(x == 2) {
+        if(x == 2 && p.getY() != 1) {
             p.setX(p.getX());
             p.setY(p.getY()-1);
         }
-        if(x == 3) {
+        if(x == 3 && p.getX() != width - 2) {
             p.setX(p.getX()+1);
             p.setY(p.getY());
         }
-        if(x == 0) {
+        if(x == 0 && p.getX() != 1) {
             p.setX(p.getX()-1);
             p.setY(p.getY());
         }
+
         return p;
     }
 }

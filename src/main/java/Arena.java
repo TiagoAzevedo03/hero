@@ -140,14 +140,15 @@ public class Arena {
     }
     public void moveMonsters(){
         for(Monster m: monsters){
-            boolean flag = true;
-            for (Wall w: walls){
-                if (w.getPosition().getX() == m.getPosition().getX() && w.getPosition().getY() == m.getPosition().getY()){
-                    flag = false;
-                    break;
-                }
-            }
-            if (flag) m.move();
+            //boolean flag = true;
+            //for (Wall w: walls){
+                //if (w.getPosition().getX() == m.getPosition().getX() && w.getPosition().getY() == m.getPosition().getY()){
+                    //flag = false;
+                    //break;
+                //}
+            //}
+            //if (flag)
+            m.move(width, height);
         }
     }
 

@@ -1,4 +1,6 @@
+import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TextCharacter;
+import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.graphics.TextGraphics;
 
 public class Wall extends Element{
@@ -16,8 +18,10 @@ public class Wall extends Element{
         position = p;
     }
 
-    public void draw(TextGraphics screen){
-        screen.setCharacter(position.getX(), position.getY(), TextCharacter.fromCharacter('X')[0]);
+    public void draw(TextGraphics graphics){
+        graphics.setForegroundColor(TextColor.Factory.fromString("#FFFF00"));
+        graphics.enableModifiers(SGR.BOLD);
+        graphics.setCharacter(position.getX(), position.getY(), TextCharacter.fromCharacter('X')[0]);
     }
 
 
